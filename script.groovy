@@ -1,6 +1,6 @@
 def buildImage() {
      echo "building the image"
-                withCredentials([usernamePassword(credientalsId: 'Docker-hub-credientials', passwordVariable: 'PASS', usernameVariable: 'USER')]){
+                withCredentials([usernamePassword(credentialsId: 'Docker-hub-credientials', passwordVariable: 'PASS', usernameVariable: 'USER')]){
                     sh 'docker build -t sivanesansaravanan/demo-app:test .'
                     sh "echo $PASS | docker login -u $USER --password-stdin"
                     sh 'docker push sivanesansaravanan/demo-app:test'

@@ -1,25 +1,29 @@
+#!/usr/bin/env groovy
+
+def gv
+
 pipeline {
     agent any
     stages {
-        stage("build image") {
+        stage("init"){
             steps {
-                echo "building the image"
-                withCredentials([usernamePassword(credentialsId: 'Docker-hub-credientials', passwordVariable: 'PASS', usernameVariable: 'USER')]){
-                    sh 'docker build -t sivanesansaravanan/demo-app:test .'
-                    sh "echo $PASS | docker login -u $USER --password-stdin"
-                    sh 'docker push sivanesansaravanan/demo-app:test'
+                script {
+                    gv = load "script.groovy"
                 }
-
             }
         }
-        stage("test") {
+        stage("build image") {
             steps {
-                echo "testing the application"
+               script {
+                gv.buildImage()
+               }
             }
         }
         stage("deploy") {
             steps {
-                echo "deploying the application"
+                script {
+                    gv.deployApplication
+                }
             }
         }
     }

@@ -5,6 +5,14 @@ def gv
 pipeline {
     agent any
     stages {
+        stage('build version') {
+            steps {
+                script {
+                    def buildNumber = env.BUILD_NUMBER
+                    echo "Build Number: ${buildNumber}"
+                }
+            }
+        } 
         stage("init"){
             steps {
                 script {

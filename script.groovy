@@ -8,8 +8,5 @@ def buildImage() {
                     sh "docker push sivanesansaravanan/demo-app:test-${buildNumber}"
                 }
 }
-def deployApplication() {
-    echo "deploying application"
-}
 
 return this
